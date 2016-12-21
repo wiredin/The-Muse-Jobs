@@ -9,6 +9,7 @@ class Job
 
   def self.page(page)
     options = { query: { page: page } }
-    self.get("/jobs", options) 
+    response = self.get("/jobs", options) 
+    response["results"]
   end
 end

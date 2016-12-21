@@ -1,2 +1,10 @@
-<h1>Jobs#index</h1>
-<p>Find me in app/views/jobs/index.html.erb</p>
+<h1>The Muse Jobs</h1>
+
+<ul class="list-unstyled">
+<% @jobs.each do |job| %>
+  <li class="job-list">
+    <span class="company"><%= job["company"]["name"] %></span>
+    <span class="job-name"><%= job["name"] %></span>
+  </li>
+<% end %>
+</ul>
