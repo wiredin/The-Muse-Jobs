@@ -1,9 +1,8 @@
 class JobsController < ApplicationController
 
   def index
-    console  
-    @page = params[:page].to_i || 1
-    resp = Job.page(@page)
+    @page = (params[:page] || 1).to_i
+    resp = Job.page(@page.to_i)
     @page_count = resp["page_count"].to_i - 1
     @jobs = resp["results"]
   end

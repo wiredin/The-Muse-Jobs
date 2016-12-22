@@ -1,5 +1,7 @@
 <h1>The Muse Jobs</h1>
 
+
+
 <ul class="list-unstyled">
 <% @jobs.each do |job| %>
   <li class="job-list">
@@ -10,7 +12,12 @@
 </ul>
 
 
-
-<% display_pages.each do |p| %>
-  <%= p + 1 %>
-<% end %>
+<nav aria-label="Page navigation">
+  <ul class="pagination">
+  <% display_pages.each do |p| %>
+    <li <%= 'class=active' if p == @page  %>>
+      <%= link_to p, jobs_path(page: p) %> 
+    </li>
+  <% end %>
+  </ul>
+</nav>
