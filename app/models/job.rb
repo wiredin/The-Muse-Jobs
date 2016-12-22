@@ -8,8 +8,8 @@ class Job
   end
 
   def self.page(page)
-    options = { query: { page: page } }
+    options = { query: { page: page - 1 } }
     response = self.get("/jobs", options) 
-    response["results"]
+    response
   end
 end
