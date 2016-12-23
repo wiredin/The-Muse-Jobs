@@ -1,10 +1,9 @@
 class JobsController < ApplicationController
 
   def index
-    console
     build_url_params
-    resp = Job.page(@page, @categories, @levels, @location)
-    @page_count = resp["page_count"].to_i - 1
+    resp = Job.page(@page, @categories, @levels, @location, @company)
+    @page_count = resp["page_count"].to_i 
     @jobs = resp["results"]
   end
 
@@ -14,7 +13,8 @@ class JobsController < ApplicationController
     @page = (params[:page] || 1).to_i
     @categories = params["category"] || []
     @levels = params["level"] || []
-    @location = params["location"]
+    @location = params["location"] || []
+    @company = params["company"] || []
   end
 
 end

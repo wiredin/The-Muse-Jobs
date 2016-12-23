@@ -13,7 +13,7 @@
 <div class="row">
   <div class="col-md-1"><strong>Location:</strong></div>
   <div class="col-md-11">
-<%= select_tag "location", options_for_select(location_links, selected: jobs_path({page: @page, level: @levels, category: @categories, location: @location})), class: "form-control", onchange: "location = this.value;" %>
+<%= select_tag "location", options_for_select(location_links, selected: jobs_path({page: @page, level: @levels, category: @categories, location: @location, company: @company})), class: "form-control", onchange: "location = this.value;" %>
   </div>
 </div>
 <div class="row">
@@ -30,11 +30,8 @@
 <ul class="list-unstyled job-list">
 <% @jobs.each do |job| %>
   <li class="job-item">
-    <span class="company"><%= job["company"]["name"] %></span>
-    <span class="job-name"><%= job["name"] %></span>
-    <% job["locations"].each do |loc|%>
-      <span class="category"><%= loc %></span>
-    <% end %>
+    <span class="company"> <%= link_to job["company"]["name"], jobs_path(page: 1, level: @levels, category: @categories, location: @location, company: job["company"]["name"]) %></span>
+    <span class="job-name"><a href="<%=job["refs"]["landing_page"] %>"><%= job["name"] %></a></span>
   </li>
 <% end %>
 </ul>
@@ -44,7 +41,7 @@
   <ul class="pagination">
   <% display_pages.each do |p| %>
     <li <%= 'class=active' if p == @page  %>>
-      <%= link_to p, jobs_path(page: p, level: @levels, category: @categories, location: @location) %> 
+      <%= link_to p, jobs_path(page: p, level: @levels, category: @categories, location: @location, company: @company) %> 
     </li>
   <% end %>
   </ul>
