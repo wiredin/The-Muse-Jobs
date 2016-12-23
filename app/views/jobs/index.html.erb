@@ -1,12 +1,30 @@
 <h1>The Muse Jobs</h1>
 
-
+<div class="row">
+  <div class="col-md-1"><strong>Category:</strong></div>
+  <div class="col-md-11">
+  <% categories_list.each do |c| %>
+    <%= link_to c, jobs_path(category_params c), class: category_class(c) %>
+  <% end %> 
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-1"><strong>Level:</strong></div>
+  <div class="col-md-11">
+  <% experience_list.each do |l| %>
+    <%= link_to l, jobs_path(level_params l), class: level_class(l) %>
+  <% end %> 
+  </div>
+</div>
 
 <ul class="list-unstyled">
 <% @jobs.each do |job| %>
   <li class="job-list">
     <span class="company"><%= job["company"]["name"] %></span>
     <span class="job-name"><%= job["name"] %></span>
+    <% job["categories"].each do |category|%>
+      <span class="category"><%= category["name"] %></span>
+    <% end %>
   </li>
 <% end %>
 </ul>
@@ -16,7 +34,7 @@
   <ul class="pagination">
   <% display_pages.each do |p| %>
     <li <%= 'class=active' if p == @page  %>>
-      <%= link_to p, jobs_path(page: p) %> 
+      <%= link_to p, jobs_path(page: p, level: @levels, category: @categories) %> 
     </li>
   <% end %>
   </ul>

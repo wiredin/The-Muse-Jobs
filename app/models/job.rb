@@ -7,8 +7,9 @@ class Job
     self.get("/jobs/#{id}")
   end
 
-  def self.page(page)
-    options = { query: { page: page - 1 } }
+  def self.page(page, categories, levels)
+    self.disable_rails_query_string_format
+    options = { query: { page: page - 1, category: categories, level: levels } }
     response = self.get("/jobs", options) 
     response
   end
