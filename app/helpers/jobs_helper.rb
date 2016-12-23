@@ -20,9 +20,9 @@ module JobsHelper
 
   def category_params(c)
     if @categories.include? c
-      {page: 1, level: @levels, category: @categories - [c]}
+      {page: 1, level: @levels, category: @categories - [c], location: @location}
     else
-      {page: @page, level: @levels, category: @categories + [c]}
+      {page: @page, level: @levels, category: @categories + [c], location: @location}
     end
   end
  
@@ -35,9 +35,9 @@ module JobsHelper
   end
   def level_params(l)
     if @levels.include? l
-      {page: 1, level: @levels - [l], category: @categories}
+      {page: 1, level: @levels - [l], category: @categories, location: @location}
     else
-      {page: @page, level: @levels + [l], category: @categories}
+      {page: @page, level: @levels + [l], category: @categories, location: @location}
     end
   end
  
@@ -49,4 +49,12 @@ module JobsHelper
     end
   end
 
-end
+  def location_links
+    options = []
+    location_list.each do |loc|
+      options << [loc,jobs_path({page: 1, level: @levels, category: @categories, location: loc})]
+    end
+    options.sort
+  end
+
+end 

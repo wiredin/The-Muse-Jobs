@@ -7,9 +7,10 @@ class Job
     self.get("/jobs/#{id}")
   end
 
-  def self.page(page, categories, levels)
+  def self.page(page, categories, levels, location)
     self.disable_rails_query_string_format
-    options = { query: { page: page - 1, category: categories, level: levels } }
+    api_key = Rails.application.secrets.the_muse
+    options = { query: {api_key: api_key, page: page - 1, category: categories, level: levels, location: location } }
     response = self.get("/jobs", options) 
     response
   end
